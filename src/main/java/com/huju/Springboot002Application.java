@@ -1,8 +1,10 @@
 package com.huju;
 
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+@MapperScan(value = "com.huju.*.dao")
 @SpringBootApplication
 public class Springboot002Application {
 
