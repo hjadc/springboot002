@@ -2,8 +2,10 @@ package com.huju.cache.entities;
 
 import lombok.Data;
 
+import java.io.Serializable;
+
 @Data
-public class Employee {
+public class Employee implements Serializable{
 	
 	private Integer id;
 	private String lastName;
@@ -11,14 +13,5 @@ public class Employee {
 	private Integer gender; //性别 1男  0女
 	private Integer dId;
 
-	
-	public Employee(Integer id, String lastName, String email, Integer gender, Integer dId) {
-		super();
-		this.id = id;
-		this.lastName = lastName;
-		this.email = email;
-		this.gender = gender;
-		this.dId = dId;
-	}
 	
 }

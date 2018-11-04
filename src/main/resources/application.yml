@@ -4,3 +4,10 @@ spring:
     driverClassName: com.mysql.jdbc.Driver
     username: root
     password: 123456
+  redis:
+    host: 192.168.113.128
+    port: 5678
+  cache:
+    redis:
+      use-key-prefix: true
+      time-to-live: 1000000 #毫秒
