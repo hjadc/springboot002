@@ -10,6 +10,7 @@
  * 		@CachePut		保证方法被调用，又希望结果被缓存。
 
 ###2.RabbitMQ
+    @EnableRabbit + @RabbitListener(queues = {"test.news"}) 监听消息队列里的内容
  * 给RabbitMA自动配置的情况
  * 1.RabbitAutoConfiguration
  * 2.有自动配置了连接工厂 CachingConnectionFactory

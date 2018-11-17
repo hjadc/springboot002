@@ -2,6 +2,7 @@ package com.huju;
 
 import com.huju.cache.dao.EmployeeMapper;
 import com.huju.cache.entities.Employee;
+import com.huju.rabbitmq.entities.Book;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
@@ -65,7 +66,7 @@ public class Springboot002ApplicationTests {
 		map.put("data", Arrays.asList("你好呀!", 666888, true));
 
 		// 对象被默认序列化(JDK机制)以后发送出去
-		rabbitTemplate.convertAndSend("exchange.direct", "test.news", new Book("西游记","吴承恩"));
+		rabbitTemplate.convertAndSend("exchange.direct", "test.news", new Book("红楼梦","曹雪芹"));
 	}
 
 	/**
