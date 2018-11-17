@@ -79,4 +79,14 @@ public class Springboot002ApplicationTests {
 		System.out.println("********* 接收的数据是:" +o);
 	}
 
+	/**
+	 * 广播
+	 */
+	@Test
+	public void sendMsg(){
+		// exchange.fanout是广播交换器,所有不用指定消息队列
+		rabbitTemplate.convertAndSend("exchange.fanout", "", new Book("三国演义","罗贯中"));
+
+	}
+
 }
