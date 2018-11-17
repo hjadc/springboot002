@@ -11,3 +11,8 @@ spring:
     redis:
       use-key-prefix: true
       time-to-live: 1000000 #毫秒
+#设置rabbitmq连接参数
+  rabbitmq:
+    host: 192.168.113.128
+    username: guest
+    password: guest
