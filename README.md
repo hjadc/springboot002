@@ -16,5 +16,5 @@
  * 2.有自动配置了连接工厂 CachingConnectionFactory
  * 3.RabbitProperties 封装了 RabbitMQ的配置
  * 4.rabbitTemplate 给RabbitMQ发送和接受消息
- * 5.amqpAdmin : RabbitMQ系统管理功能组件
+ * 5.amqpAdmin : RabbitMQ系统管理功能组件,可以在代码里创建和删除Queue(消息队列),Exchange(交换器),Binding(绑定规则)
  
