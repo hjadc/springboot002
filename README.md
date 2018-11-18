@@ -18,3 +18,11 @@
  * 4.rabbitTemplate 给RabbitMQ发送和接受消息
  * 5.amqpAdmin : RabbitMQ系统管理功能组件,可以在代码里创建和删除Queue(消息队列),Exchange(交换器),Binding(绑定规则)
  
+###3.elasticsearch
+* SpringBoot默认支持两种技术来iheES交互
+* 1.Jest客户端(默认不生效)
+    *   需要导入jest的工具包(io.searchbox.client.JestClient)
+* 2.SpringData ElasticSearch
+    * Client节点inxi
+    * ElasticsearchTemplate操作ES
+    * 编写一个ElasticsearchRepository的子接口来操作ES

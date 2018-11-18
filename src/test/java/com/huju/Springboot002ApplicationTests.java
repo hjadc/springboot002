@@ -2,7 +2,12 @@ package com.huju;
 
 import com.huju.cache.dao.EmployeeMapper;
 import com.huju.cache.entities.Employee;
+import com.huju.elastic.entitis.Article;
 import com.huju.rabbitmq.entities.Book;
+import io.searchbox.client.JestClient;
+import io.searchbox.core.Index;
+import io.searchbox.core.Search;
+import io.searchbox.core.SearchResult;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.amqp.core.AmqpAdmin;
@@ -15,6 +20,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -29,6 +35,8 @@ public class Springboot002ApplicationTests {
     RedisTemplate redisTemplate;
     @Autowired
     AmqpAdmin amqpAdmin;
+    @Autowired
+    JestClient jestClient;
 
     @Test
     public void contextLoads() {
@@ -125,8 +133,58 @@ public class Springboot002ApplicationTests {
          * 创建一个绑定规则,可以传入destination(目的地),destinationType(目的地类型,有两种:QUEUE(队列)和EXCHANGE(交换器)),
          * exchange(交换器的名字).routingKey(路由键),arguments(参数头信息)
          */
-        amqpAdmin.declareBinding(new Binding("amqpAdmin.queue",Binding.DestinationType.QUEUE,"amqpAdmin.exchange","amqp.haha",null));
+        amqpAdmin.declareBinding(new Binding("amqpAdmin.queue", Binding.DestinationType.QUEUE, "amqpAdmin.exchange", "amqp.haha", null));
         System.out.println("创建绑定规则完成!");
+    }
+
+    /**
+     * 1.测试保存一个文档
+     */
+    @Test
+    public void saveElasticSearch() {
+        // 1.给ES中索引(保存)一个文档
+        Article article = new Article();
+        article.setId(1);
+        article.setTitle("测试保存的标题");
+        article.setAuthor("德玛西亚");
+        article.setContent("Hello World");
+
+        // 2.构建一个索引功能  传入对象,索引,类型
+        Index index = new Index.Builder(article).index("test001").type("news").build();
+
+        try {
+            // 3.执行
+            jestClient.execute(index);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    /**
+     * 2.测试搜索(全文检索)
+     */
+    @Test
+    public void serch() {
+        // 编写搜索表达式
+        String json ="{\n" +
+                "    \"query\" : {\n" +
+                "        \"match\" : {\n" +
+                "            \"content\" : \"hello\"\n" +
+                "        }\n" +
+                "    }\n" +
+                "}";
+
+        // 构建搜索功能 传入指定的索引和类型
+        Search build = new Search.Builder(json).addIndex("test001").addType("news").build();
+
+        try {
+            SearchResult execute = jestClient.execute(build);
+            // 会返回很多信息.这里就直接打印json字符串
+            System.out.println(execute.getJsonString());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }

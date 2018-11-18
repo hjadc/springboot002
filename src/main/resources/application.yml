@@ -16,3 +16,7 @@ spring:
     host: 192.168.113.128
     username: guest
     password: guest
+#设置jest连接的ElasticSerach的远程主机
+  elasticsearch:
+    jest:
+      uris: http://192.168.113.128:9200
