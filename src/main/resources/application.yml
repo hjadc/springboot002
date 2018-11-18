@@ -11,12 +11,17 @@ spring:
     redis:
       use-key-prefix: true
       time-to-live: 1000000 #毫秒
-#设置rabbitmq连接参数
+# 设置rabbitmq连接参数
   rabbitmq:
     host: 192.168.113.128
     username: guest
     password: guest
-#设置jest连接的ElasticSerach的远程主机
+# 设置jest连接的ElasticSerach的远程主机
   elasticsearch:
     jest:
       uris: http://192.168.113.128:9200
+# 设置用springbot整合的模板来操作ES
+  data:
+    elasticsearch:
+      cluster-name: elasticsearch
+      cluster-nodes: 192.168.113.128:9300

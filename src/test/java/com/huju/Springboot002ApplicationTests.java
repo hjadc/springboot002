@@ -4,6 +4,8 @@ import com.huju.cache.dao.EmployeeMapper;
 import com.huju.cache.entities.Employee;
 import com.huju.elastic.entitis.Article;
 import com.huju.rabbitmq.entities.Book;
+import com.huju.repository.BookRepository;
+import com.huju.repository.entities.Book02;
 import io.searchbox.client.JestClient;
 import io.searchbox.core.Index;
 import io.searchbox.core.Search;
@@ -139,6 +141,7 @@ public class Springboot002ApplicationTests {
 
     /**
      * 1.测试保存一个文档
+     * 浏览器输入 http://192.168.113.128:9200/test001/news/1 就可以检索到这个文档了
      */
     @Test
     public void saveElasticSearch() {
@@ -185,6 +188,16 @@ public class Springboot002ApplicationTests {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * 测试第二种方法保存文档
+     */
+    public void save02(){
+        Book02 book02 = new Book02();
+
+        // bookRepository.save(book02);
+
     }
 
 }
