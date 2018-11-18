@@ -1,6 +1,6 @@
 package com.huju.task.controller;
 
-import com.huju.task.AsyncService;
+import com.huju.task.service.AsyncService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;

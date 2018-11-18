@@ -1,4 +1,4 @@
-package com.huju.task;
+package com.huju.task.service;
 
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;

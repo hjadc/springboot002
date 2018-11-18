@@ -6,6 +6,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 /**
  * 快速体验缓存
@@ -20,7 +21,8 @@ import org.springframework.scheduling.annotation.EnableAsync;
 @SpringBootApplication
 @EnableCaching
 @EnableRabbit // 开启基于注解的RabbitMq
-@EnableAsync  // 开启异步注解功能
+@EnableAsync  // 开启基于注解的异步功能
+@EnableScheduling // // 开启基于注解的定时任务
 public class Springboot002Application {
 
 	public static void main(String[] args) {
