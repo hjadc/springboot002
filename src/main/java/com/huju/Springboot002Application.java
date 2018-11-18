@@ -5,6 +5,7 @@ import org.springframework.amqp.rabbit.annotation.EnableRabbit;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.scheduling.annotation.EnableAsync;
 
 /**
  * 快速体验缓存
@@ -19,6 +20,7 @@ import org.springframework.cache.annotation.EnableCaching;
 @SpringBootApplication
 @EnableCaching
 @EnableRabbit // 开启基于注解的RabbitMq
+@EnableAsync  // 开启异步注解功能
 public class Springboot002Application {
 
 	public static void main(String[] args) {
