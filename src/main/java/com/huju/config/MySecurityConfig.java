@@ -38,7 +38,20 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter{
          * 2.重定向到/login?erroe表示登陆失败
          * 3.还有更多细节查看官方文档
          */
-        http.formLogin();
+        http.formLogin().usernameParameter("username").passwordParameter("password").loginPage("/userlogin");
+
+        /**
+         * 开启自动配置的注销功能
+         * 1.访问logout 表示用户注销,并清空session
+         * 2.注销成功会返回 /login?logout 页面
+         */
+        http.logout().logoutSuccessUrl("/"); // 定制注销成功后跳转的页面
+
+        /**
+         * 开启记住我功能
+         * 登陆成功后,将cookie发给浏览器
+         */
+        http.rememberMe().rememberMeParameter("remeber");
     }
 
     /**
