@@ -26,3 +26,7 @@
     * Client节点inxi
     * ElasticsearchTemplate操作ES
     * 编写一个ElasticsearchRepository的子接口来操作ES
+    
+###4.security安全认证模块
+* 1.引入SpringSecurity
+* 2.编写SpringSecurity的配置
