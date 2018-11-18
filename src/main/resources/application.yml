@@ -25,3 +25,8 @@ spring:
     elasticsearch:
       cluster-name: elasticsearch
       cluster-nodes: 192.168.113.128:9300
+# 设置邮箱信息
+  mail:
+    username: 839817187@qq.com
+    password: 设置授权码
+    host: smtp.qq.com

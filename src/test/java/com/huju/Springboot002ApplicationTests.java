@@ -20,8 +20,14 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
+import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -39,6 +45,8 @@ public class Springboot002ApplicationTests {
     AmqpAdmin amqpAdmin;
     @Autowired
     JestClient jestClient;
+    @Autowired
+    JavaMailSenderImpl mailSender;
 
     @Test
     public void contextLoads() {
@@ -170,7 +178,7 @@ public class Springboot002ApplicationTests {
     @Test
     public void serch() {
         // 编写搜索表达式
-        String json ="{\n" +
+        String json = "{\n" +
                 "    \"query\" : {\n" +
                 "        \"match\" : {\n" +
                 "            \"content\" : \"hello\"\n" +
@@ -193,10 +201,63 @@ public class Springboot002ApplicationTests {
     /**
      * 测试第二种方法保存文档
      */
-    public void save02(){
+    public void save02() {
         Book02 book02 = new Book02();
 
         // bookRepository.save(book02);
+
+    }
+
+    /**
+     * 测试发送一个普通文本邮件
+     */
+    @Test
+    public void senMail() {
+
+        SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
+        // 设置主题
+        simpleMailMessage.setSubject("邮件主题是: 通知,今晚出去玩!");
+        // 设置内容
+        simpleMailMessage.setText("邮件内容是:记得快点出来啊");
+        // 设置发送给谁
+        simpleMailMessage.setTo("13886338732@163.com");
+        // 设置密送人
+        simpleMailMessage.setBcc("ju.hu@pds-inc.com.cn");
+        // 设置发送人
+        simpleMailMessage.setFrom("839817187@qq.com");
+
+        mailSender.send(simpleMailMessage);
+
+    }
+
+    /**
+     * 测试发送一个复杂邮件
+     */
+    @Test
+    public void senMail02() throws MessagingException {
+
+        // 1.创建一个复杂的消息邮件
+        MimeMessage mimeMessage = mailSender.createMimeMessage();
+
+        // 如果需要发送文件或者传输html等,就需要进行编码(传入true)
+        MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, true);
+
+        // 设置主题
+        mimeMessageHelper.setSubject("邮件主题是: 通知,今晚出去玩!");
+        // 设置内容,如果需要以html样式展示,第二个参数需要传入true
+        mimeMessageHelper.setText("<b style='color:red'>邮件内容是:记得快点出来啊</b>", true);
+        // 设置发送给谁
+        mimeMessageHelper.setTo("13886338732@163.com");
+        // 设置密送人
+        mimeMessageHelper.setBcc("ju.hu@pds-inc.com.cn");
+        // 设置发送人
+        mimeMessageHelper.setFrom("839817187@qq.com");
+
+        // 上传文件
+        mimeMessageHelper.addAttachment("1.jpg", new File("D:\\高清壁纸\\321.jpg"));
+        mimeMessageHelper.addAttachment("2.jpg", new File("D:\\高清壁纸\\ChMkJ1cpupOIFUUyAA4rlpnlufAAARBAQLlCv4ADiuu792.jpg"));
+
+        mailSender.send(mimeMessage);
 
     }
 
